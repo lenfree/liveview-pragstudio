@@ -5,3 +5,4 @@
 <%= live_render(@conn, LiveViewStudioWeb.LightLive) %>
 <%= live_render(@conn, LiveViewStudioWeb.LicenseLive) %>
 <%= live_render(@conn, LiveViewStudioWeb.LicenseLive) %>
+<%= live_render(@conn, LiveViewStudioWeb.LightMasterLive) %>
