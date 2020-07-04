@@ -21,10 +21,12 @@ defmodule LiveViewStudioWeb.Router do
 
     live "/light", LightLive
     live "/light-master", LightMasterLive
+    live "/light-living", LightLivingLive
     live "/license", LicenseLive
     live "/timer", TimerLive
     live "/sales-dashboard", SalesDashboardLive
 
+    get "/summary", SummaryController, :index
     get "/sales", SalesController, :index
   end
 

@@ -1,0 +1,4 @@
+<h1>All liveviews</h1>
+
+<%= live_render(@conn, LiveViewStudioWeb.LightMasterLive) %>
+<%= live_render(@conn, LiveViewStudioWeb.LightLivingLive) %>

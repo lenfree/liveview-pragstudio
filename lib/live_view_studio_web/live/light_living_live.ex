@@ -1,4 +1,4 @@
-defmodule LiveViewStudioWeb.LightMasterLive do
+defmodule LiveViewStudioWeb.LightLivingLive do
   use LiveViewStudioWeb, :live_view
 
   alias LiveViewStudio.Lights
@@ -11,7 +11,7 @@ defmodule LiveViewStudioWeb.LightMasterLive do
       status: "off",
       brightness: 0,
       max_brightness: @max_brightness,
-      bulb_id: 3
+      bulb_id: 2
     )
 
     {:ok, socket}

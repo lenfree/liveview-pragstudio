@@ -1,11 +1,10 @@
 defmodule LiveViewStudio.Lights do
-  def turn_on(bulb_id) do
-    body = Poison.encode!(%{on: true})
+  def turn_on(bulb_id, brightness) do
+    body = Poison.encode!(%{on: true, bri: brightness})
     HTTPoison.put!("#{build_url()}/#{bulb_id}/state", body)
   end
 
   def turn_off(bulb_id) do
-    IO.inspect(@api_key)
     body = Poison.encode!(%{on: false})
     HTTPoison.put!("#{build_url()}/#{bulb_id}/state", body)
   end
