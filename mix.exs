@@ -20,7 +20,7 @@ defmodule LiveViewStudio.MixProject do
   def application do
     [
       mod: {LiveViewStudio.Application, []},
-      extra_applications: [:logger, :runtime_tools, :timex]
+      extra_applications: [:logger, :runtime_tools, :timex, :httpoison]
     ]
   end
 
@@ -49,7 +49,9 @@ defmodule LiveViewStudio.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:faker, "~> 0.13"},
       {:number, "~> 1.0"},
-      {:timex, "~>3.0"}
+      {:timex, "~>3.0"},
+      {:httpoison, "~> 1.6"},
+      {:poison, "~> 3.1"}
     ]
   end
 

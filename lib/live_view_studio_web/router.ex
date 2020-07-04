@@ -20,9 +20,12 @@ defmodule LiveViewStudioWeb.Router do
     live "/", PageLive
 
     live "/light", LightLive
+    live "/light-master", LightMasterLive
     live "/license", LicenseLive
     live "/timer", TimerLive
     live "/sales-dashboard", SalesDashboardLive
+
+    get "/sales", SalesController, :index
   end
 
   # Other scopes may use custom stacks.

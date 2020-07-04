@@ -1,0 +1,7 @@
+<h1>All liveviews</h1>
+
+<%= live_render(@conn, LiveViewStudioWeb.TimerLive) %>
+<%= live_render(@conn, LiveViewStudioWeb.SalesDashboardLive) %>
+<%= live_render(@conn, LiveViewStudioWeb.LightLive) %>
+<%= live_render(@conn, LiveViewStudioWeb.LicenseLive) %>
+<%= live_render(@conn, LiveViewStudioWeb.LicenseLive) %>
