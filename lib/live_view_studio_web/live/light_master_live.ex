@@ -3,15 +3,17 @@ defmodule LiveViewStudioWeb.LightMasterLive do
 
   alias LiveViewStudio.Lights
 
+  @bulb_id 3
   @max_brightness 150
   def mount(_params, _session, socket) do
-    # Get current status!
+    %{"state" => state } = Lights.status(@bulb_id)
+
     socket = assign(
       socket,
-      status: "off",
-      brightness: 0,
+      status: state["on"],
+      brightness: state["bri"],
       max_brightness: @max_brightness,
-      bulb_id: 3
+      bulb_id: @bulb_id
     )
 
     {:ok, socket}

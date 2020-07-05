@@ -19,4 +19,9 @@ defmodule LiveViewStudio.Lights do
   def build_url() do
     "#{@url}/#{@api_key}/lights"
   end
+
+  def status(bulb_id) do
+    %{body: body} = HTTPoison.get!("#{build_url()}/#{bulb_id}")
+    Poison.decode!(body)
+  end
 end
