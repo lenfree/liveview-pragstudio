@@ -26,14 +26,11 @@ defmodule LiveViewStudioWeb.Router do
     live "/timer", TimerLive
     live "/sales-dashboard", SalesDashboardLive
 
-<<<<<<< HEAD
     get "/summary", SummaryController, :index
     get "/sales", SalesController, :index
-=======
     live "/search", SearchLive
 
     live "/covid", CovidLive
->>>>>>> 92fd5c2... wip covid
   end
 
   # Other scopes may use custom stacks.
