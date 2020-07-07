@@ -7,7 +7,7 @@ defmodule LiveViewStudioWeb.CovidLive do
     socket =
       assign(socket,
         country: "",
-        countries: Covid.list_countries(),
+        countries: [],
         loading: false
       )
 
