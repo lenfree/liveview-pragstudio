@@ -45,13 +45,14 @@ defmodule LiveViewStudio.MixProject do
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0"},
+      {:jason, "~> 1.1"},
       {:plug_cowboy, "~> 2.0"},
       {:faker, "~> 0.13"},
       {:number, "~> 1.0"},
       {:timex, "~>3.0"},
       {:httpoison, "~> 1.6"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:neuron, "~> 5.0.0"}
     ]
   end
 

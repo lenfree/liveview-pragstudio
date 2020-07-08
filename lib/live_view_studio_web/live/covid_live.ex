@@ -40,18 +40,19 @@ defmodule LiveViewStudioWeb.CovidLive do
             <li>
             <div class="first-line">
               <div class="name">
-                <%= country["Country"] %>
+                <%= country["Country_Region"] %>
               </div>
               <div class="status">
                 <span class="open">New Confirmed: <%= country["NewConfirmed"] %></span>
-                <span class="open">TotalConfirmed: <%= country["TotalConfirmed"] %></span>
-                <span class="open">TotalDeaths: <%= country["TotalDeaths"] %></span>
-                <span class="open">NewRecovered: <%= country["NewRecovered"] %></span>
+                <span class="open">Total Confirmed: <%= country["Confirmed"] %></span>
+                <span class="open">New Deaths: <%= country["NewDeaths"] %></span>
+                <span class="open">Deaths: <%= country["Deaths"] %></span>
+                <span class="open">Active: <%= country["Active"] %></span>
               </div>
             </div>
             <div class="second-line">
               <div class="street">
-                Last updated: <%= country["Date"] %>
+                Last updated: <%= country["Last_Update"] %>
               </div>
             </div>
             </li>
