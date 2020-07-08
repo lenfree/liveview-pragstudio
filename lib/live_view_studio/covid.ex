@@ -1,7 +1,11 @@
 defmodule LiveViewStudio.Covid do
   def search_by_country(country) do
     list_summary()
-    |> Enum.filter(&(&1["Country_Region"] == String.capitalize(country)))
+    |> Enum.filter(&country_match?(&1, country))
+  end
+
+  def country_match?(result, country) do
+    String.downcase(result["Country_Region"]) =~ country
   end
 
   def list_summary() do
