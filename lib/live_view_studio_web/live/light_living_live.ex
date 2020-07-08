@@ -6,22 +6,23 @@ defmodule LiveViewStudioWeb.LightLivingLive do
   @bulb_id 2
   @max_brightness 150
   def mount(_params, _session, socket) do
-    %{"state" => state } = Lights.status(@bulb_id)
+    %{"state" => state} = Lights.status(@bulb_id)
 
-    socket = assign(
-      socket,
-      status: state["on"],
-      brightness: state["bri"],
-      max_brightness: @max_brightness,
-      bulb_id: @bulb_id
-    )
+    socket =
+      assign(
+        socket,
+        status: state["on"],
+        brightness: state["bri"],
+        max_brightness: @max_brightness,
+        bulb_id: @bulb_id
+      )
 
     {:ok, socket}
   end
 
   def render(assigns) do
     ~L"""
-    <h1>Living Room hhyLight Control</h1>
+    <h1>Living Room Light Control</h1>
     <div id="light">
       <div class="card">
         <div class="contents">
@@ -91,5 +92,4 @@ defmodule LiveViewStudioWeb.LightLivingLive do
         {:noreply, socket}
     end
   end
-
 end
