@@ -6,15 +6,18 @@ defmodule LiveViewStudioWeb.LightMasterLive do
   @bulb_id 3
   @max_brightness 150
   def mount(_params, _session, socket) do
-    %{"state" => state } = Lights.status(@bulb_id)
+    %{"state" => state} = Lights.status(@bulb_id)
 
-    socket = assign(
-      socket,
-      status: state["on"],
-      brightness: state["bri"],
-      max_brightness: @max_brightness,
-      bulb_id: @bulb_id
-    )
+    Lights.adjust_brightness(@bulb_id, state["bri"])
+
+    socket =
+      assign(
+        socket,
+        status: state["on"],
+        brightness: state["bri"],
+        max_brightness: @max_brightness,
+        bulb_id: @bulb_id
+      )
 
     {:ok, socket}
   end
@@ -36,13 +39,21 @@ defmodule LiveViewStudioWeb.LightMasterLive do
                     name="brightness" value="<%= @brightness %>" />
             </form>
 
-           <button phx-click="off">
-             <img src="images/light-off.svg"">
-           </button>
-
-           <button phx-click="on">
-             <img src="images/light-on.svg">
-           </button>
+            <%= if @status do %>
+              <div id="light-off">
+              <button phx-click="off">
+                Turn Off
+                <img src="images/light-off.svg"">
+              </button>
+              </div>
+            <% else %>
+              <div id="light-on">
+              <button phx-click="on">
+                Turn On
+                <img src="images/light-on.svg">
+              </button>
+              </div>
+            <% end %>
         </div>
       </div>
     </div>
@@ -51,14 +62,16 @@ defmodule LiveViewStudioWeb.LightMasterLive do
 
   def handle_event("on", _params, socket) do
     bulb_id = socket.assigns.bulb_id
-    %HTTPoison.Response{status_code: status_code} = Lights.turn_on(bulb_id, 150)
+
+    %HTTPoison.Response{status_code: status_code} =
+      Lights.turn_on(bulb_id, socket.assigns.brightness)
 
     case status_code do
       200 ->
+        socket = assign(socket, :status, true)
         {:noreply, socket}
 
       _ ->
-        socket = assign(socket, :status, "on")
         {:noreply, socket}
     end
   end
@@ -69,10 +82,11 @@ defmodule LiveViewStudioWeb.LightMasterLive do
 
     case status_code do
       200 ->
+        socket = assign(socket, status: false)
         {:noreply, socket}
 
       _ ->
-        socket = assign(socket, :status, "off")
+        socket = assign(socket, status: true)
         {:noreply, socket}
     end
   end
