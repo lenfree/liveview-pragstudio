@@ -31,6 +31,32 @@ defmodule LiveViewStudio.Covid do
     body["data"]["summary"]["countries"]
   end
 
+  def list_by_country(country) do
+    Neuron.Config.set(url: "https://api-corona.azurewebsites.net/graphql")
+
+    {:ok, %{body: %{"data" => %{"country" => result}}}} =
+      Neuron.query(
+        """
+         query($country: ID!) {
+           country(country: $country) {
+           Summary {
+             Country_Region
+             Last_Update
+             Deaths
+             NewDeaths
+             NewConfirmed
+             Confirmed
+             Active
+           }
+         }
+        }
+        """,
+        %{country: country}
+      )
+
+    result
+  end
+
   def list_countries() do
     list_summary()
   end
