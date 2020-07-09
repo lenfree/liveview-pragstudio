@@ -20,7 +20,7 @@ defmodule LiveViewStudioWeb.CovidLiveAutocomplete do
     <div id="search">
       <form phx-submit="search-country" phx-change="autocomplete-search-country">
         <input type="text" name="country" value="<%= @country %>"
-        autofocus autocomplete="off"
+        autofocus autocomplete="off" phx-debounce="1000"
         />
 
         <button name="submit">
