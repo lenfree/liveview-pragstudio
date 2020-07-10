@@ -11,50 +11,56 @@ defmodule LiveViewStudio.Covid do
   def list_summary() do
     Neuron.Config.set(url: "https://api-corona.azurewebsites.net/graphql")
 
-    {:ok, %{body: body}} =
-      Neuron.query("""
-        {
-          summary {
-            countries {
-              Country_Region
-              Last_Update
-              Deaths
-              NewDeaths
-              NewConfirmed
-              Confirmed
-              Active
-            }
-          }
-        }
-      """)
+    case Neuron.query("""
+           {
+             summary {
+               countries {
+                 Country_Region
+                 Last_Update
+                 Deaths
+                 NewDeaths
+                 NewConfirmed
+                 Confirmed
+                 Active
+               }
+             }
+           }
+         """) do
+      {:ok, %{body: body}} ->
+        body["data"]["summary"]["countries"]
 
-    body["data"]["summary"]["countries"]
+      _ ->
+        []
+    end
   end
 
   def list_by_country(country) do
     Neuron.Config.set(url: "https://api-corona.azurewebsites.net/graphql")
 
-    {:ok, %{body: %{"data" => %{"country" => result}}}} =
-      Neuron.query(
-        """
-         query($country: ID!) {
-           country(country: $country) {
-           Summary {
-             Country_Region
-             Last_Update
-             Deaths
-             NewDeaths
-             NewConfirmed
-             Confirmed
-             Active
+    case Neuron.query(
+           """
+            query($country: ID!) {
+              country(country: $country) {
+              Summary {
+                Country_Region
+                Last_Update
+                Deaths
+                NewDeaths
+                NewConfirmed
+                Confirmed
+                Active
+              }
+            }
            }
-         }
-        }
-        """,
-        %{country: country}
-      )
+           """,
+           %{country: country}
+         ) do
+      {:ok, %{body: %{"data" => %{"country" => result}}}} ->
+        result
 
-    result
+      _ ->
+        %{}
+    end
   end
 
   def list_countries() do
