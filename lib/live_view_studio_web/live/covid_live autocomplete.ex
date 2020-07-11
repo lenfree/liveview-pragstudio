@@ -37,25 +37,7 @@ defmodule LiveViewStudioWeb.CovidLiveAutocomplete do
       <div class="stores">
         <ul>
           <%= for country <- @countries do %>
-            <li>
-            <div class="first-line">
-              <div class="name">
-                <%= country["Country_Region"] %>
-              </div>
-              <div class="status">
-                <span class="open">New Confirmed: <%= country["NewConfirmed"] %></span>
-                <span class="open">Total Confirmed: <%= country["Confirmed"] %></span>
-                <span class="open">New Deaths: <%= country["NewDeaths"] %></span>
-                <span class="open">Deaths: <%= country["Deaths"] %></span>
-                <span class="open">Active: <%= country["Active"] %></span>
-              </div>
-            </div>
-            <div class="second-line">
-              <div class="street">
-                Last updated: <%= country["Last_Update"] %>
-              </div>
-            </div>
-            </li>
+            <%= create_list(%{country: country}) %>
           <% end %>
         </ul>
       </div>
@@ -115,5 +97,29 @@ defmodule LiveViewStudioWeb.CovidLiveAutocomplete do
 
         {:noreply, socket}
     end
+  end
+
+  defp create_list(assigns) do
+    ~L"""
+      <li>
+        <div class="first-line">
+          <div class="name">
+            <%= @country["Country_Region"] %>
+          </div>
+        </div>
+        <div class="status">
+          <span class="open">New Confirmed: <%= @country["NewConfirmed"] %></span>
+          <span class="open">Total Confirmed: <%= @country["Confirmed"] %></span>
+          <span class="open">New Deaths: <%= @country["NewDeaths"] %></span>
+          <span class="open">Deaths: <%= @country["Deaths"] %></span>
+          <span class="open">Active: <%= @country["Active"] %></span>
+        </div>
+        <div class="second-line">
+          <div class="street">
+            Last updated: <%= @country["Last_Update"] %>
+          </div>
+        </div>
+      </li>
+    """
   end
 end
