@@ -37,6 +37,10 @@ defmodule LiveViewStudio.Covid do
   def list_by_country(country) do
     Neuron.Config.set(url: "https://api-corona.azurewebsites.net/graphql")
 
+    # There are countries such as "Korea, South", with code
+    # equivalent of "korea-south". Hence, we need to do below:
+    country = String.replace(country, ", ", "-")
+
     case Neuron.query(
            """
             query($country: ID!) {
