@@ -35,7 +35,11 @@ defmodule LiveViewStudio.Servers do
       ** (Ecto.NoResultsError)
 
   """
-  def get_server!(id), do: Repo.get!(Server, id)
+  def get_server!(id) do
+    server = Repo.get!(Server, id)
+    containers = get_containers(server)
+    %{server | docker_containers: %{result: containers}}
+  end
 
   @doc """
   Creates a server.
@@ -100,5 +104,12 @@ defmodule LiveViewStudio.Servers do
   """
   def change_server(%Server{} = server, attrs \\ %{}) do
     Server.changeset(server, attrs)
+  end
+
+  def get_containers(%{ip_address: ip_address}) do
+    {:ok, conn} = SSHEx.connect(ip: '127.0.0.1', user: "", password: "")
+    {:ok, stdout, _res} = SSHEx.run(conn, '/usr/local/bin/docker ps')
+    {_, containers} = stdout |> String.split("\n") |> List.pop_at(-1)
+    containers
   end
 end

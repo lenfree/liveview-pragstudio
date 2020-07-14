@@ -52,7 +52,9 @@ defmodule LiveViewStudio.MixProject do
       {:timex, "~>3.0"},
       {:httpoison, "~> 1.6"},
       {:poison, "~> 3.1"},
-      {:neuron, "~> 5.0.0"}
+      {:neuron, "~> 5.0.0"},
+      {:sshex, "2.2.1"},
+      {:table_rex, "~> 3.0.0"}
     ]
   end
 
