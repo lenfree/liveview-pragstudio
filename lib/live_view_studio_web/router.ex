@@ -33,6 +33,8 @@ defmodule LiveViewStudioWeb.Router do
     live "/covid", CovidLive
     live "/covidautocomplete", CovidLiveAutocomplete
     live "/coviddropdown", CovidLiveDropDown
+
+    live "/filter", FilterLive
   end
 
   # Other scopes may use custom stacks.
