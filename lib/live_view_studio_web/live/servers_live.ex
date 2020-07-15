@@ -25,7 +25,7 @@ defmodule LiveViewStudioWeb.ServersLive do
         <nav>
           <%= for server <- @servers do %>
             <div>
-              <%= live_patch server.name,
+              <%= live_patch link_body(server),
                 to: Routes.live_path(
                     @socket,
                     __MODULE__,
@@ -136,7 +136,8 @@ defmodule LiveViewStudioWeb.ServersLive do
     socket =
       assign(socket,
         selected_server: server,
-        servers: Servers.list_servers()
+        servers: Servers.list_servers(),
+        page_title: server.name
       )
 
     {:noreply, socket}
@@ -180,5 +181,14 @@ defmodule LiveViewStudioWeb.ServersLive do
       )
 
     {:noreply, socket}
+  end
+
+  defp link_body(server) do
+    assigns = %{name: server.name}
+
+    ~L"""
+    <img src="images/server.svg">
+    <%= @name %>
+    """
   end
 end
