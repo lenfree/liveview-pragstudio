@@ -19,6 +19,7 @@ defmodule LiveViewStudio.Servers do
   """
   def list_servers do
     Repo.all(Server)
+    |> Enum.map(&parse_docker_containers/1)
   end
 
   @doc """
@@ -36,9 +37,7 @@ defmodule LiveViewStudio.Servers do
 
   """
   def get_server!(id) do
-    server = Repo.get!(Server, id)
-    containers = get_containers(server)
-    %{server | docker_containers: %{result: containers}}
+    Repo.get!(Server, id) |> parse_docker_containers()
   end
 
   @doc """
@@ -106,10 +105,17 @@ defmodule LiveViewStudio.Servers do
     Server.changeset(server, attrs)
   end
 
+  @ausername System.get_env("USERNAME")
+  @apassword System.get_env("PASSWORD")
   def get_containers(%{ip_address: ip_address}) do
-    {:ok, conn} = SSHEx.connect(ip: '127.0.0.1', user: "", password: "")
+    {:ok, conn} = SSHEx.connect(ip: ip_address, user: @ausername, password: @apassword)
     {:ok, stdout, _res} = SSHEx.run(conn, '/usr/local/bin/docker ps')
     {_, containers} = stdout |> String.split("\n") |> List.pop_at(-1)
     containers
+  end
+
+  defp parse_docker_containers(server) do
+    containers = get_containers(server)
+    %{server | docker_containers: %{result: containers}}
   end
 end

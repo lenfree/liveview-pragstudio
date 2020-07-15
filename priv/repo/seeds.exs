@@ -16,15 +16,7 @@ alias LiveViewStudio.Servers.Server
 %Server{
   docker_containers: %{},
   environment: "dev",
-  ip_address: "192.168.0.1",
-  name: "localhost2"
-}
-|> Repo.insert!()
-
-%Server{
-  docker_containers: %{},
-  environment: "dev",
-  ip_address: "192.168.0.2",
-  name: "localhost3"
+  ip_address: "127.0.0.1",
+  name: "localhost"
 }
 |> Repo.insert!()

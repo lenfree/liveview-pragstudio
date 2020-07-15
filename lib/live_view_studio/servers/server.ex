@@ -15,6 +15,6 @@ defmodule LiveViewStudio.Servers.Server do
   def changeset(server, attrs) do
     server
     |> cast(attrs, [:name, :ip_address, :docker_containers, :environment])
-    |> validate_required([:name, :ip_address, :docker_containers, :environment])
+    |> validate_required([:name, :ip_address, :environment])
   end
 end
